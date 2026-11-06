@@ -647,49 +647,84 @@
                 </div>
             </div>
         </section>
-        <div style="padding:20px;background:#141427;border-radius:10px;color:white;text-align:center;">
 
-            <h3>Teste de áudio — Dark Fantasy</h3>
+        <div style="background:#141427;color:white;padding:20px;border-radius:8px;">
+            <h3>Diagnóstico de áudio — iOS 9</h3>
 
-            <audio id="testeAudio" controls preload="auto" style="width:100%;height:45px;">
-                <source src="https://rpg-soundboard-audio.enzo-dantas.workers.dev/?id=1k1wFqgIXhCBOeupnwA7aGU2ojfGd7TlY"
-                    type="audio/mpeg">
+            <audio id="audioTeste" controls preload="metadata" style="width:100%;"
+                src="https://rpg-soundboard-audio.enzo-dantas.workers.dev/?id=1k1wFqgIXhCBOeupnwA7aGU2ojfGd7TlY">
             </audio>
 
-            <button onclick="document.getElementById('testeAudio').play();"
-                style="margin-top:15px;padding:12px 20px;background:#9112bc;color:white;border:0;border-radius:6px;font-size:16px;">
-                Reproduzir áudio
+            <button type="button" onclick="tocarTeste()"
+                style="padding:12px 20px;background:#9112bc;color:white;border:0;border-radius:6px;margin-top:15px;">
+                TESTAR REPRODUÇÃO
             </button>
 
-            <p id="audioStatus" style="font-size:13px;color:#ae75da;">
-                Aguardando carregamento...
-            </p>
-
+            <div id="diagnostico" style="margin-top:15px;font-size:13px;line-height:1.7;">
+                Aguardando...
+            </div>
         </div>
 
         <script>
-            (function () {
-                var audio = document.getElementById('testeAudio');
-                var status = document.getElementById('audioStatus');
+            var audioTeste = document.getElementById('audioTeste');
+            var diagnostico = document.getElementById('diagnostico');
 
-                audio.addEventListener('loadedmetadata', function () {
-                    status.innerHTML = 'Duração: ' + audio.duration.toFixed(2) + ' segundos';
-                });
+            function registrar(mensagem) {
+                diagnostico.innerHTML += '<br>' + mensagem;
+            }
 
-                audio.addEventListener('canplay', function () {
-                    status.innerHTML = 'Áudio carregado e pronto para tocar.';
-                });
+            function atualizar() {
+                registrar(
+                    'Estado: readyState=' + audioTeste.readyState +
+                    ' | networkState=' + audioTeste.networkState +
+                    ' | duração=' + audioTeste.duration
+                );
+            }
 
-                audio.addEventListener('playing', function () {
-                    status.innerHTML = 'Áudio reproduzindo!';
-                });
+            audioTeste.addEventListener('loadstart', function () {
+                registrar('Iniciou carregamento');
+            });
 
-                audio.addEventListener('error', function () {
-                    status.innerHTML = 'Erro ao carregar áudio. Código: ' +
-                        (audio.error ? audio.error.code : 'desconhecido');
-                });
-            })();
+            audioTeste.addEventListener('loadedmetadata', function () {
+                registrar('Metadados carregados!');
+                atualizar();
+            });
+
+            audioTeste.addEventListener('canplay', function () {
+                registrar('Áudio pronto para tocar!');
+            });
+
+            audioTeste.addEventListener('playing', function () {
+                registrar('REPRODUZINDO!');
+            });
+
+            audioTeste.addEventListener('stalled', function () {
+                registrar('ERRO: carregamento interrompido (stalled)');
+                atualizar();
+            });
+
+            audioTeste.addEventListener('suspend', function () {
+                registrar('Carregamento suspenso');
+            });
+
+            audioTeste.addEventListener('error', function () {
+                registrar('ERRO DE ÁUDIO: código ' +
+                    (audioTeste.error ? audioTeste.error.code : 'desconhecido'));
+                atualizar();
+            });
+
+            function tocarTeste() {
+                registrar('Botão acionado pelo usuário');
+                atualizar();
+
+                try {
+                    audioTeste.play();
+                } catch (e) {
+                    registrar('Erro JavaScript: ' + e.message);
+                }
+            }
         </script>
+
         <section class="panel">
             <div class="controls">
                 <button class="control-button danger" id="stopAll">■ Parar todos</button>

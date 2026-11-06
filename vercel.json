@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/audio", "destination": "https://rpg-soundboard-audio.enzo-dantas.workers.dev/" }
+  ]
+}

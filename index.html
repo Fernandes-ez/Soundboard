@@ -647,21 +647,49 @@
                 </div>
             </div>
         </section>
-        <div style="
-  padding: 20px;
-  background: #141427;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-">
-            <p>Teste de áudio — Dark Fantasy</p>
+        <div style="padding:20px;background:#141427;border-radius:10px;color:white;text-align:center;">
 
-            <audio id="testeAudio" controls preload="none" playsinline style="width: 100%;">
+            <h3>Teste de áudio — Dark Fantasy</h3>
+
+            <audio id="testeAudio" controls preload="auto" style="width:100%;height:45px;">
                 <source src="https://rpg-soundboard-audio.enzo-dantas.workers.dev/?id=1k1wFqgIXhCBOeupnwA7aGU2ojfGd7TlY"
                     type="audio/mpeg">
-                Seu navegador não suporta áudio HTML5.
             </audio>
+
+            <button onclick="document.getElementById('testeAudio').play();"
+                style="margin-top:15px;padding:12px 20px;background:#9112bc;color:white;border:0;border-radius:6px;font-size:16px;">
+                Reproduzir áudio
+            </button>
+
+            <p id="audioStatus" style="font-size:13px;color:#ae75da;">
+                Aguardando carregamento...
+            </p>
+
         </div>
+
+        <script>
+            (function () {
+                var audio = document.getElementById('testeAudio');
+                var status = document.getElementById('audioStatus');
+
+                audio.addEventListener('loadedmetadata', function () {
+                    status.innerHTML = 'Duração: ' + audio.duration.toFixed(2) + ' segundos';
+                });
+
+                audio.addEventListener('canplay', function () {
+                    status.innerHTML = 'Áudio carregado e pronto para tocar.';
+                });
+
+                audio.addEventListener('playing', function () {
+                    status.innerHTML = 'Áudio reproduzindo!';
+                });
+
+                audio.addEventListener('error', function () {
+                    status.innerHTML = 'Erro ao carregar áudio. Código: ' +
+                        (audio.error ? audio.error.code : 'desconhecido');
+                });
+            })();
+        </script>
         <section class="panel">
             <div class="controls">
                 <button class="control-button danger" id="stopAll">■ Parar todos</button>

@@ -318,28 +318,51 @@
 
         /* ÁUDIOS */
 
+        /* Sem CSS Grid: o Safari do iOS 9 não suporta. Quadrados via inline-block + padding-top. */
         .sound-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
+            font-size: 0;
+            margin: 0 -1%;
+        }
+
+        .sound-grid .message {
+            font-size: 14px;
+            margin: 0 1%;
         }
 
         .sound-item {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 23%;
+            margin: 1%;
             border: 1px solid var(--panel-border);
             background: rgba(0, 0, 0, .16);
-            min-width: 0;
-            padding: 13px;
+        }
+
+        .sound-item:before {
+            content: "";
+            display: block;
+            padding-top: 100%;
         }
 
         .sound-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 38px;
+            padding: 8px 8px 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            text-align: center;
         }
 
         .play-button {
-            width: 39px;
-            height: 39px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 8px;
             flex-shrink: 0;
             border: 1px solid var(--accent-soft);
             background: var(--accent-faint);
@@ -356,15 +379,15 @@
 
         .sound-info {
             min-width: 0;
-            flex: 1;
+            width: 100%;
         }
 
         .sound-name {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            line-height: 1.25;
+            max-height: 2.5em;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .sound-state {
@@ -378,9 +401,11 @@
 
         .loop-button {
             display: block;
-            width: 100%;
-            margin-top: 11px;
-            padding: 7px 8px;
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            padding: 7px 4px;
             border: 1px solid rgba(255, 255, 255, .09);
             background: transparent;
             color: var(--muted);
@@ -515,8 +540,8 @@
                 padding: 13px;
             }
 
-            .sound-grid {
-                grid-template-columns: 1fr;
+            .sound-item {
+                width: 48%;
             }
 
             .system-tab {

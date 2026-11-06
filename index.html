@@ -1226,7 +1226,7 @@
             var audio = new Audio(sound.url.replace(/^https:\/\/rpg-soundboard-audio\.enzo-dantas\.workers\.dev\/\?/, "/a2?"));
 
             audio.loop = !!sound.loop;
-            audio.preload = "none";
+            audio.preload = "auto";
 
             var active = {
                 id: sound.id,
@@ -1255,6 +1255,7 @@
                 state.innerHTML = "ERRO AO CARREGAR";
             };
 
+            audio.load();
             var playResult = audio.play();
 
             if (playResult && typeof playResult.then === "function") {

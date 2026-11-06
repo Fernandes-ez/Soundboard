@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Caixinha Sinistra">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#090710">
 
-    <title>RPG Soundboard</title>
+    <title>Caixinha Sinistra</title>
 
     <style>
         * {
@@ -205,11 +206,15 @@
         }
 
         h1 {
-            font-size: 37px;
+            font-family: Impact, "Arial Narrow", "Arial Black", sans-serif;
+            font-size: 44px;
             font-weight: normal;
-            letter-spacing: 1px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             margin: 0;
-            text-shadow: 0 0 25px var(--accent-faint);
+            color: var(--accent);
+            -webkit-transform: rotate(-2deg);
+            transform: rotate(-2deg);
         }
 
         .subtitle {
@@ -648,27 +653,24 @@
     <main class="app">
 
         <header>
-            <div class="eyebrow">A soundscape for your adventures</div>
-            <h1>The Dungeon Awaits</h1>
-            <div class="subtitle">RPG Soundboard</div>
-            <div class="ornament"></div>
+            <h1>Caixinha Sinistra</h1>
         </header>
         <section class="panel">
-            <div class="section-label">✦ Campanhas</div>
+            <div class="section-label">Campanhas</div>
             <div class="system-tabs" id="systemTabs">
                 <div class="message">Carregando campanhas...</div>
             </div>
         </section>
 
         <section class="panel">
-            <div class="section-label">✦ Categorias</div>
+            <div class="section-label">Categorias</div>
             <div class="category-list" id="categories">
                 <div class="message">Selecione uma campanha.</div>
             </div>
         </section>
 
         <section class="panel">
-            <div class="section-label">✦ Biblioteca de sons</div>
+            <div class="section-label">Biblioteca de sons</div>
             <div class="sound-grid" id="soundGrid">
                 <div class="message">
                     <strong>Aguardando conexão</strong>
@@ -704,7 +706,7 @@
         </section>
 
         <footer>
-            YOUR WORLD · YOUR SOUNDTRACK
+            caixinha sinistra
         </footer>
 
     </main>

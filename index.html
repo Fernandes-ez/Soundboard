@@ -1189,6 +1189,17 @@
             button.innerHTML = "■";
             state.innerHTML = "REPRODUZINDO";
 
+            // Loop sem silêncio: volta ao início um pouco antes do fim (timeupdate dispara a cada ~250 ms no iOS)
+            audio.ontimeupdate = function () {
+                var d = audio.duration;
+
+                if (sound.loop && d && isFinite(d) && d > 3 && d - audio.currentTime < 0.4) {
+                    try {
+                        audio.currentTime = 0;
+                    } catch (e) { }
+                }
+            };
+
             audio.onended = function () {
                 removeActiveSound(active);
                 button.className = "play-button";

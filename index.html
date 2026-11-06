@@ -1222,7 +1222,8 @@
                 return;
             }
 
-            var audio = new Audio(sound.url);
+            // iOS 9 não confia no certificado do workers.dev; o áudio passa pelo domínio da Vercel (ver vercel.json)
+            var audio = new Audio(sound.url.replace(/^https:\/\/rpg-soundboard-audio\.enzo-dantas\.workers\.dev\/\?/, "/a2?"));
 
             audio.loop = !!sound.loop;
             audio.preload = "none";
